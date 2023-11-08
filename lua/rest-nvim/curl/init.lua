@@ -63,9 +63,9 @@ M.get_or_create_buf = function()
   local existing_bufnr = vim.fn.bufnr(tmp_name)
   if existing_bufnr ~= -1 then
     -- Set modifiable
-    vim.api.nvim_set_option_value("modifiable", true, { buf = existing_bufnr})
+    vim.api.nvim_set_option_value("modifiable", true, { buf = existing_bufnr })
     -- Prevent modified flag
-    vim.api.nvim_set_option_value("buftype", "nofile", { buf = existing_bufnr})
+    vim.api.nvim_set_option_value("buftype", "nofile", { buf = existing_bufnr })
     -- Delete buffer content
     vim.api.nvim_buf_set_lines(
       existing_bufnr,
@@ -76,7 +76,7 @@ M.get_or_create_buf = function()
     )
 
     -- Make sure the filetype of the buffer is httpResult so it will be highlighted
-    vim.api.nvim_set_option_value("ft", "httpResult", { buf = existing_bufnr } )
+    vim.api.nvim_set_option_value("ft", "httpResult", { buf = existing_bufnr })
 
     return existing_bufnr
   end
@@ -103,7 +103,8 @@ local function create_callback(curl_cmd, opts)
       return
     end
     local res_bufnr = M.get_or_create_buf()
-    local content_type = res.headers[utils.key(res.headers,'content-type')]
+    local content_type = res.headers[utils.value(res.headers, "content%-type:")]
+
     if content_type then
       content_type = content_type:match("application/([-a-z]+)") or content_type:match("text/(%l+)")
     end

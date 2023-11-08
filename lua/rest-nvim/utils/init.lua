@@ -304,6 +304,20 @@ M.has_value = function(tbl, str)
   return false
 end
 
+-- value returns the provided table's key whose value matches the provided string using a regex
+-- @param tbl Table to iterate over
+-- @param str String to search in the table
+M.value = function(tbl, str)
+  for tbl_key, element in ipairs(tbl) do
+    if string.find(string.lower(element), string.lower(str)) then
+      return tbl_key
+    end
+  end
+  return str
+end
+
+
+
 -- key returns the provided table's key that matches the given case-insensitive pattern.
 -- if not found, return the given key.
 -- @param tbl Table to iterate over
